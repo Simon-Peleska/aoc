@@ -34,17 +34,17 @@ pub fn main() !void {
     var count_of_correct: u32 = 0;
 
     var line_index: u8 = 0;
+
     while (try in_stream.readUntilDelimiterOrEof(&buf, '\n')) |line| : (line_index += 1) {
         array[line_index] = line[0..140].*;
     }
+
     file.close();
 
     for (0..(size)) |i| {
         for (0..size) |j| {
             if (is_2) {
-                if (i <= size - 3 and j <= size - 3 and array[i + 1][j + 1] == 'A' and
-                    ((array[i][j] == 'M' and array[i][j + 2] == 'M' and array[i + 2][j + 2] == 'S' and array[i + 2][j] == 'S') or (array[i][j] == 'S' and array[i][j + 2] == 'M' and array[i + 2][j + 2] == 'M' and array[i + 2][j] == 'S') or (array[i][j] == 'S' and array[i][j + 2] == 'S' and array[i + 2][j + 2] == 'M' and array[i + 2][j] == 'M') or (array[i][j] == 'M' and array[i][j + 2] == 'S' and array[i + 2][j + 2] == 'S' and array[i + 2][j] == 'M')))
-                {
+                if (i <= size - 3 and j <= size - 3 and array[i + 1][j + 1] == 'A' and ((array[i][j] == 'M' and array[i][j + 2] == 'M' and array[i + 2][j + 2] == 'S' and array[i + 2][j] == 'S') or (array[i][j] == 'S' and array[i][j + 2] == 'M' and array[i + 2][j + 2] == 'M' and array[i + 2][j] == 'S') or (array[i][j] == 'S' and array[i][j + 2] == 'S' and array[i + 2][j + 2] == 'M' and array[i + 2][j] == 'M') or (array[i][j] == 'M' and array[i][j + 2] == 'S' and array[i + 2][j + 2] == 'S' and array[i + 2][j] == 'M'))) {
                     count_of_correct += 1;
                 }
             } else {

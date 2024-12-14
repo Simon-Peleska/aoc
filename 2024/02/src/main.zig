@@ -1,10 +1,10 @@
 const std = @import("std");
 
 const print = std.debug.print;
-const SplitIterator = std.mem.SplitIterator;
 
 pub fn main() !void {
-    // Create an allocator.
+    var t = try std.time.Timer.start();
+
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
     const allocator = arena.allocator();
@@ -14,7 +14,7 @@ pub fn main() !void {
     var is_2 = false;
 
     for (args) |arg| {
-        if (std.mem.eql(u8, arg, "2")) {
+        if (std.mem.eql(u8, arg, "-2")) {
             print("{s}\n", .{arg});
             is_2 = true;
             break;
@@ -58,6 +58,7 @@ pub fn main() !void {
     }
 
     print("{d}\n", .{count_of_correct});
+    print("time {}\n", .{std.fmt.fmtDuration(t.read())});
 }
 
 fn checkLine(entries: std.ArrayList(i32)) bool {

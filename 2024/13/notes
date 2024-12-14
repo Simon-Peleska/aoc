@@ -1,0 +1,43 @@
+a_x * a + b_x * b == result_x
+a_x * a + b_x * b - result = 0
+result_x - a_x * a = b_x * b
+(result_x - a_x * a)/b_x = b 
+(result_y - a_y * a)/b_y = b
+
+a = ((result_x - b_x * b) / a_x + (result_y - b_y * b) / a_y)/2
+
+
+(result_x - a_x * a)/b_x = (result_y - a_y * a)/b_y
+(result_x - a_x * a) * b_y = (result_y - a_y * a) * b_x
+result_x * b_y - a_x * b_y * a = result_y * b_x - a_y * b_x * a
+result_x * b_y - result_y * b_x = a_x * b_y * a - a_y * b_x * a
+result_x * b_y - result_y * b_x = (a_x * b_y - a_y * b_x ) * a
+a =  (result_x * b_y - result_y * b_x) / (a_x * b_y - a_y * b_x )
+ 
+a_x * a + b_x * b = result_x
+
+a_y * a + b_y * b = result_y
+b_y * b = result_y - a_y * a
+
+b = (result_y - a_y * a) / b_y
+
+a = (result_y - b_y * b) / a_y
+
+b = (result_y - b_y  * ((result_x - a_x * b) / a_x)) / b_y
+b O  
+
+
+
+
+
+
+
+
+b = (5400 - 67  * ((8400 - 22 * b) / a_x)) / b_y
+
+
+a = ((b_x * result_y) - (b_y * result_x))/((b_x * a_y) - (a_x * b_y))
+b = ((a_y * result_x) - (a_x * result_y))/((b_x * a_y) - (a_x * b_y))
+
+a_x != 0
+
