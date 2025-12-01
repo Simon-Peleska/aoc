@@ -50,6 +50,7 @@ pub fn main() !void {
     print("\n{d}\n", .{full_count});
     print("time {s}\n", .{std.fmt.fmtDuration(t.read())});
 }
+
 fn testCalculation(a_x: i64, a_y: i64, b_x: i64, b_y: i64, result_x: i64, result_y: i64) u64 {
     const number1: f64 = @floatFromInt((b_x * result_y) - (b_y * result_x));
     const number2: f64 = @floatFromInt((b_x * a_y) - (a_x * b_y));
@@ -66,69 +67,4 @@ fn testCalculation(a_x: i64, a_y: i64, b_x: i64, b_y: i64, result_x: i64, result
 
     const cost = a_int * 3 + b_int;
     return cost;
-}
-
-fn getCheapest(a_x: u64, a_y: u64, b_x: u64, b_y: u64, result_x: u64, result_y: u64) u64 {
-    var cost: ?u64 = null;
-    const b_range_x: u64 = @divFloor(result_x, b_x);
-    const b_range_y: u64 = @divFloor(result_y, b_y);
-    const b_range = if (b_range_x < b_range_y) b_range_x else b_range_y;
-
-    const a_range_x: u64 = @divFloor(result_x, a_x);
-    const a_range_y: u64 = @divFloor(result_y, a_y);
-    const a_range = if (a_range_x < a_range_y) a_range_x else a_range_y;
-
-    const lowest_b = @divFloor(@divFloor(result_x - a_x * a_range, b_x) + @divFloor(result_y - a_y * a_range, b_y), 2);
-
-    const upper_range: u64 = b_range;
-    const lower_range: u64 = lowest_b;
-
-    var remainders_x: [100]?u64 = undefined;
-    @memset(&remainders_x, null);
-    var remainders_y: [100]?u64 = undefined;
-    @memset(&remainders_y, null);
-    var b = lower_range;
-    // var increase: u64 = 1;
-    const increase: u64 = 1;
-    while (b <= upper_range) : (b += increase) {
-        // print("x: {:0>4} {:0>4} {:0>4} {:0>4}\n", .{ b * b_x, (result_x - (b * b_x)) % a_x, @divFloor(result_x - (b * b_x), a_x), b });
-        // print("y: {:0>4} {:0>4} {:0>4} {:0>4}\n", .{ b * b_y, (result_y - (b * b_y)) % a_y, @divFloor(result_y - (b * b_y), a_y), b });
-
-        const remaining_x: u64 = result_x - (b * b_x);
-        const remaining_y: u64 = result_y - (b * b_y);
-
-        const remainder_x = remaining_x % a_x;
-        const remainder_y = remaining_y % a_y;
-
-        // print("{d} {d} {d}\n", .{ b, remainder_x, remainder_y });
-
-        if (remainders_x[remainder_x] == null) {
-            remainders_x[remainder_x] = b;
-        } else if (remainder_x != 0) {
-            // return 0;
-        } else if (increase == 1) {
-            // print("aaaaaa", .{});
-            // increase = b - remainders_x[remainder_x].?;
-        }
-
-        if (remainders_y[remainder_y] == null) {
-            remainders_y[remainder_y] = b;
-        } else if (remainder_y != 0) {
-            // return 0;
-        } else if (increase == 1) {
-            // increase = b - remainders_y[remainder_y].?;
-        }
-
-        if (remainder_x == 0 and remainder_y == 0 and @divExact(remaining_x, a_x) == @divExact(remaining_y, a_y)) {
-            const a = @divExact(remaining_x, a_x);
-            cost = a * 3 + b;
-            print("a: {d} b: {d}\n", .{ a, b });
-
-            break;
-        }
-    }
-
-    // print("{any} {any}\n", .{ cost, count });
-
-    return if (cost) |cost_value| cost_value else 0;
 }
