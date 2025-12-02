@@ -33,5 +33,6 @@ for line in file:
 
                 if isInvalid:
                     sum += num
+                    break
                 
 print(sum)
