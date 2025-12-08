@@ -1,48 +1,51 @@
-file = open("input", "r")
+import math
 
-level = 1
-ranges = []
+file = open("input", "r")
+level = 2
 
 
 def main():
     count = 0
 
-    for line in file:
-        if line == "\n":
-            break
-
-        rangeArray = line.split("-")
-
-        start = int(rangeArray[0])
-        end = int(rangeArray[1])
-
-        for range in ranges.copy():
-            if range[0] <= start and start <= range[1]:
-                start = range[1] + 1
-
-            if range[0] <= end and end <= range[1]:
-                end = range[0] - 1
-
-            if start <= range[0] and range[1] <= end:
-                ranges.remove(range)
-
-        if end - start < 0:
-            continue
-
-        range = (start, end)
-        ranges.append(range)
+    lines = file.readlines()
 
     if level == 1:
-        for line in file:
-            number = int(line.split()[0])
+        numbers1 = list(map(int, lines[0].split()))
+        numbers2 = list(map(int, lines[1].split()))
+        numbers3 = list(map(int, lines[2].split()))
+        numbers4 = list(map(int, lines[3].split()))
+        operations = lines[4].split()
 
-            for range in ranges:
-                if range[0] <= number and number <= range[1]:
-                    count += 1
-                    break
+        print(operations)
+
+        for i in range(len(numbers1)):
+            if operations[i] == "+":
+                count += numbers1[i] + numbers2[i] + numbers3[i] + numbers4[i]
+            else:
+                count += numbers1[i] * numbers2[i] * numbers3[i] * numbers4[i]
     else:
-        for range in ranges:
-            count += range[1] - range[0] + 1
+        lines = ["".join(col) for col in zip(*lines)]
+
+        operation = ""
+        numbers = []
+
+        for line in lines:
+            if line.strip() == "":
+                if operation == "+":
+                    count += sum(numbers)
+                elif operation == "*":
+                    count += math.prod(numbers)
+
+                operations = ""
+                numbers = []
+                continue
+
+            if line[4] != " ":
+                operation = line[4]
+
+            numberStr = line[:4].replace(" ", "")
+            number = int(numberStr)
+            numbers.append(number)
 
     print(count)
 
